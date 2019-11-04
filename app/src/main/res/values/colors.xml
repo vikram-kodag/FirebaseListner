@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="orange">#FC6E51</color>
+    <color name="green">#A0D468</color>
+    <color name="blue">#4FC0E9</color>
+    <color name="globalBorderColor">#b0c4de</color>
+    <color name="ColorWhite">#FFFFFF</color>
+    <color name="colorTextLabel">#394264</color>
+    <color name="colorContactText">#747474</color>
+    <color name="textColorGray">#747474</color>
+    <color name="colorLightBlack">#353535</color>
+    <color name="soft_grey">#E0E0E0</color>
+    <color name="colorTransparent">#00000000</color>
+</resources>

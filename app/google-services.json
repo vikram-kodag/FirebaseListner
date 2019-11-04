@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "842657677686",
+    "firebase_url": "https://fir-listeners.firebaseio.com",
+    "project_id": "fir-listeners",
+    "storage_bucket": "fir-listeners.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842657677686:android:5b2d9e571fcf8fcca8ba57",
+        "android_client_info": {
+          "package_name": "com.vk.firebaselisteners"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "842657677686-olk76db1f5qcolhb4suu5sppb4vrq6m0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdWIdNfDyLZJbvUZjyHus2O0XJe0DeNuU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "842657677686-olk76db1f5qcolhb4suu5sppb4vrq6m0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
