@@ -19,6 +19,7 @@ public class EmployeeListActivity extends AppCompatActivity {
         employeeListViewModel = new EmployeeListViewModel(this, activityEmployeeListBinding);
         employeeListViewModel.setActionBar();
         employeeListViewModel.init();
+        employeeListViewModel.setFabClickListener();
     }
 
     @Override

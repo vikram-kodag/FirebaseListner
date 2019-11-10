@@ -29,7 +29,4 @@ public class ProgressDialogClass {
         });
     }
 
-    public ProgressDialog getDialogObject() {
-        return dialogObj;
-    }
 }

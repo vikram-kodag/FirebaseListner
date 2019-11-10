@@ -23,7 +23,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_employeeList"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:divider="@null" />
 
             <LinearLayout
@@ -38,6 +38,17 @@
                     android:gravity="center"
                     android:text="@string/na" />
             </LinearLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="@dimen/dp_30"
+                android:contentDescription="@string/app_name"
+                android:src="@android:drawable/ic_input_add" />
         </RelativeLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

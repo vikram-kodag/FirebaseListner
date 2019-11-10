@@ -22,8 +22,8 @@ import java.util.HashMap;
 
 import static com.vk.firebaselisteners.constants.Constant.FAIL;
 import static com.vk.firebaselisteners.constants.Constant.SUCCESS;
-import static com.vk.firebaselisteners.firebase.FirebaseConstants.DATABASE;
 import static com.vk.firebaselisteners.firebase.FirebaseConstants.EMPLOYEE_TABLE;
+import static com.vk.firebaselisteners.firebase.FirebaseDatabaseReference.DATABASE;
 
 public class EmployeeRepositoryImpl extends FirebaseRepository implements EmployeeRepository {
     private ProgressDialogClass progressDialog;
@@ -242,8 +242,8 @@ public class EmployeeRepositoryImpl extends FirebaseRepository implements Employ
     @Override
     public FirebaseRequestModel readAllEmployeesByChildEvent(final FirebaseChildCallBack firebaseChildCallBack) {
         progressDialog.showDialog(getString(R.string.loading), getString(R.string.please_wait));
-        //get all employees order by employee name
-        Query query = employeeDatabaseReference.orderByChild("empName");
+        //get all employees order by created date time
+        Query query = employeeDatabaseReference.orderByChild("createdDateTime");
         ChildEventListener childEventListener = fireBaseChildEventListener(query, new FirebaseChildCallBack() {
                     @Override
                     public void onChildAdded(Object object) {

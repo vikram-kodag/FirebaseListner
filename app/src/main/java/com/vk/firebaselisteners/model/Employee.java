@@ -4,16 +4,17 @@ import com.google.firebase.database.Exclude;
 import com.google.firebase.database.ServerValue;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Employee implements Serializable {
     private String empName;
-    private String branchName;
     private String designation;
     private String empId;
     private String empKey;
-    private Salary salary;
     private Long createdDateTime;
+    private Long updatedDateTime;
+    private BranchDetails branchDetails;
 
     public Employee() {
     }
@@ -24,14 +25,6 @@ public class Employee implements Serializable {
 
     public void setEmpName(String empName) {
         this.empName = empName;
-    }
-
-    public String getBranchName() {
-        return branchName;
-    }
-
-    public void setBranchName(String branchName) {
-        this.branchName = branchName;
     }
 
     public String getDesignation() {
@@ -50,12 +43,12 @@ public class Employee implements Serializable {
         this.empId = empId;
     }
 
-    public Salary getSalary() {
-        return salary;
+    public BranchDetails getBranchDetails() {
+        return branchDetails;
     }
 
-    public void setSalary(Salary salary) {
-        this.salary = salary;
+    public void setBranchDetails(BranchDetails branchDetails) {
+        this.branchDetails = branchDetails;
     }
 
     public String getEmpKey() {
@@ -75,7 +68,28 @@ public class Employee implements Serializable {
         return ServerValue.TIMESTAMP;
     }
 
+    public Map<String, String> getUpdatedDateTime() {
+        return ServerValue.TIMESTAMP;
+    }
+
+    public Long getUpdatedDateTimeLong() {
+        return updatedDateTime;
+    }
+
+    public void setUpdatedDateTime(Long updatedDateTime) {
+        this.updatedDateTime = updatedDateTime;
+    }
+
     public void setCreatedDateTime(Long createdDateTime) {
         this.createdDateTime = createdDateTime;
+    }
+
+    public HashMap<String, Object> getMap() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("empName", getEmpName());
+        map.put("designation", getDesignation());
+        map.put("branchDetails", getBranchDetails());
+        map.put("updatedDateTime", getUpdatedDateTime());
+        return map;
     }
 }

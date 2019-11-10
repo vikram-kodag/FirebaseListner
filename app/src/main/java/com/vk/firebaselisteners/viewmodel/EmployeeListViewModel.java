@@ -1,6 +1,7 @@
 package com.vk.firebaselisteners.viewmodel;
 
 
+import android.content.Intent;
 import android.view.View;
 
 import androidx.appcompat.app.ActionBar;
@@ -19,6 +20,7 @@ import com.vk.firebaselisteners.model.Employee;
 import com.vk.firebaselisteners.repository.EmployeeRepository;
 import com.vk.firebaselisteners.repository.impl.EmployeeRepositoryImpl;
 import com.vk.firebaselisteners.utility.Utility;
+import com.vk.firebaselisteners.view.activity.AddEmployeeActivity;
 import com.vk.firebaselisteners.view.activity.EmployeeListActivity;
 import com.vk.firebaselisteners.view.adapter.EmployeeDetailsAdapter;
 
@@ -63,7 +65,7 @@ public class EmployeeListViewModel {
 
     private void setAdapter(IndexedLinkedHashMap<String, Employee> employeeIndexedLinkedHashMap) {
         if (employeeDetailsAdapter == null) {
-            employeeDetailsAdapter = new EmployeeDetailsAdapter(employeeIndexedLinkedHashMap);
+            employeeDetailsAdapter = new EmployeeDetailsAdapter(employeeListActivity, employeeIndexedLinkedHashMap);
             activityEmployeeListBinding.rvEmployeeList.setHasFixedSize(true);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(employeeListActivity);
             activityEmployeeListBinding.rvEmployeeList.setLayoutManager(mLayoutManager);
@@ -75,6 +77,8 @@ public class EmployeeListViewModel {
     }
 
     private void getAllEmployees() {
+        if (firebaseRequestModel != null)
+            removeListener();
         firebaseRequestModel = employeeRepository.readAllEmployeesByChildEvent(new FirebaseChildCallBack() {
             @Override
             public void onChildAdded(Object object) {
@@ -119,5 +123,14 @@ public class EmployeeListViewModel {
 
     public void removeListener() {
         FirebaseUtility.removeFireBaseChildListener(employeeListActivity, firebaseRequestModel);
+    }
+
+    public void setFabClickListener() {
+        activityEmployeeListBinding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                employeeListActivity.startActivity(new Intent(employeeListActivity, AddEmployeeActivity.class));
+            }
+        });
     }
 }

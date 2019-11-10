@@ -1,5 +1,7 @@
 package com.vk.firebaselisteners.view.adapter;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +15,20 @@ import com.vk.firebaselisteners.databinding.EmployeeInfoRowLayoutBinding;
 import com.vk.firebaselisteners.helper.IndexedLinkedHashMap;
 import com.vk.firebaselisteners.model.Employee;
 import com.vk.firebaselisteners.utility.Utility;
+import com.vk.firebaselisteners.view.activity.AddEmployeeActivity;
 
 import static com.vk.firebaselisteners.constants.Constant.ADD;
 import static com.vk.firebaselisteners.constants.Constant.DELETE;
+import static com.vk.firebaselisteners.constants.Constant.EMPLOYEE_MODEL;
 import static com.vk.firebaselisteners.constants.Constant.UPDATE;
 
 public class EmployeeDetailsAdapter extends RecyclerView.Adapter<EmployeeDetailsAdapter.EmployeeViewHolder> {
     private IndexedLinkedHashMap<String, Employee> employeeList;
     private LayoutInflater layoutInflater;
+    private Activity activity;
 
-    public EmployeeDetailsAdapter(IndexedLinkedHashMap<String, Employee> employeeList) {
+    public EmployeeDetailsAdapter(Activity activity, IndexedLinkedHashMap<String, Employee> employeeList) {
+        this.activity = activity;
         this.employeeList = employeeList;
     }
 
@@ -38,9 +44,9 @@ public class EmployeeDetailsAdapter extends RecyclerView.Adapter<EmployeeDetails
 
     @Override
     public void onBindViewHolder(@NonNull final EmployeeViewHolder holder, final int position) {
-        final Employee employee = employeeList.getItemByIndex(position);
+        final Employee employee = employeeList.getItemByIndex(getReversePosition(position));
         if (!Utility.isEmptyOrNull(employee.getEmpName()))
-            holder.employeeInfoRowLayoutBinding.tvName.setText(employee.getBranchName());
+            holder.employeeInfoRowLayoutBinding.tvName.setText(employee.getEmpName());
         else
             holder.employeeInfoRowLayoutBinding.tvName.setText(R.string.na);
         if (!Utility.isEmptyOrNull(employee.getDesignation()))
@@ -51,8 +57,8 @@ public class EmployeeDetailsAdapter extends RecyclerView.Adapter<EmployeeDetails
             holder.employeeInfoRowLayoutBinding.tvEmpId.setText(employee.getEmpId());
         else
             holder.employeeInfoRowLayoutBinding.tvEmpId.setText(R.string.na);
-        if (!Utility.isEmptyOrNull(employee.getBranchName()))
-            holder.employeeInfoRowLayoutBinding.tvBranch.setText(employee.getBranchName());
+        if (null != employee.getBranchDetails() && !Utility.isEmptyOrNull(employee.getBranchDetails().getBranchName()))
+            holder.employeeInfoRowLayoutBinding.tvBranch.setText(employee.getBranchDetails().getBranchName());
         else
             holder.employeeInfoRowLayoutBinding.tvBranch.setText(R.string.na);
     }
@@ -65,6 +71,12 @@ public class EmployeeDetailsAdapter extends RecyclerView.Adapter<EmployeeDetails
         else return 0;
     }
 
+    private int getReversePosition(int index) {
+        if (employeeList != null && !employeeList.isEmpty())
+            return employeeList.size() - 1 - index;
+        else return 0;
+    }
+
     public void reloadList(IndexedLinkedHashMap<String, Employee> list) {
         employeeList = list;
         notifyDataSetChanged();
@@ -73,19 +85,18 @@ public class EmployeeDetailsAdapter extends RecyclerView.Adapter<EmployeeDetails
     public void reloadList(int index, String operation) {
         switch (operation) {
             case ADD:
-                notifyItemInserted(index);
+                notifyItemInserted(getReversePosition(index));
                 break;
             case UPDATE:
-                notifyItemChanged(index);
+                notifyItemChanged(getReversePosition(index));
                 break;
             case DELETE:
-                notifyItemRemoved(index);
+                notifyItemRemoved(getReversePosition(index));
                 break;
             default:
                 notifyDataSetChanged();
                 break;
         }
-        notifyDataSetChanged();
     }
 
 
@@ -95,10 +106,14 @@ public class EmployeeDetailsAdapter extends RecyclerView.Adapter<EmployeeDetails
         private EmployeeViewHolder(EmployeeInfoRowLayoutBinding employeeInfoRowLayoutBinding) {
             super(employeeInfoRowLayoutBinding.getRoot());
             this.employeeInfoRowLayoutBinding = employeeInfoRowLayoutBinding;
+            employeeInfoRowLayoutBinding.cardViewRowClick.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
+            Intent intent = new Intent(activity, AddEmployeeActivity.class);
+            intent.putExtra(EMPLOYEE_MODEL, employeeList.getItemByIndex(getReversePosition(getAdapterPosition())));
+            activity.startActivity(intent);
         }
     }//end of view holder
 

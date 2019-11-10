@@ -4,9 +4,6 @@ import android.util.Log;
 
 public class ExceptionUtil {
 
-    //*********************************************************
-    //Generic dialog, takes in the method name and error message
-    //*********************************************************
     public static void errorMessage(final String method, final String message, final Exception e) {
         logException(e);
     }
